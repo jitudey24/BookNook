@@ -7,7 +7,6 @@ import { toast } from "react-hot-toast";
 import {
   UserRound,
   Mail,
-  Camera,
   LogOut,
   Save,
 } from "lucide-react";
@@ -115,7 +114,7 @@ const ProfilePage = () => {
 
       toast.success("Logged out successfully!");
 
-      router.push("/login");
+      router.push("/signin");
       router.refresh();
     } catch (error) {
       console.error("Logout error:", error);
@@ -146,7 +145,7 @@ const ProfilePage = () => {
           Please login first
         </h2>
 
-        <Button onClick={() => router.push("/login")}>
+        <Button onClick={() => router.push("/signin")}>
           Go to Login
         </Button>
       </div>

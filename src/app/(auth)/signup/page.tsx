@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 import { signUp, signIn } from "@/lib/auth-client";
-import { SiGoogle } from "@icons-pack/react-simple-icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -250,7 +249,7 @@ const SignUpPage = () => {
           <p className="mt-5 text-center text-sm text-gray-500">
             Already have an account?{" "}
             <Link
-              href="/login"
+              href="/signin"
               className="font-semibold text-primary hover:underline"
             >
               Login

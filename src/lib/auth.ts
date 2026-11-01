@@ -6,6 +6,8 @@ const client = new MongoClient(process.env.MONGODB_URL as string);
 const db = client.db("BookNook");
 
 export const auth = betterAuth({
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+  trustedOrigins: ["http://localhost:3000"],
      emailAndPassword: {
     enabled: true,
   },

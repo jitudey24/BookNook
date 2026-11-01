@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -42,12 +42,16 @@ const slides = [
   },
 ];
 
-export default function HeroSlider() {
-  const [mounted, setMounted] = useState(false);
+// Hydration-safe mounted flag: server renders false, client renders true —
+// same behavior as the old setState-in-effect pattern, without the lint error.
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export default function HeroSlider() {
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-6 md:px-6 md:py-10">

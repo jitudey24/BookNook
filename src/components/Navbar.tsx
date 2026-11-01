@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -22,11 +21,7 @@ import { signOut, useSession } from "@/lib/auth-client";
 
 import { Button } from "@/components/ui/button";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import {
   DropdownMenu,
@@ -38,11 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const Navbar = () => {
   const router = useRouter();
@@ -60,9 +51,7 @@ const Navbar = () => {
     { name: "My Borrows", href: "/my-borrows", icon: Bookmark, private: true },
   ];
 
-  const visibleLinks = navLinks.filter(
-    (link) => !link.private || user
-  );
+  const visibleLinks = navLinks.filter((link) => !link.private || user);
 
   // Logout handler
   const handleLogout = async () => {
@@ -108,12 +97,9 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
-
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <BookOpen className="h-6 w-6" />
           </div>
@@ -121,12 +107,10 @@ const Navbar = () => {
           <span className="text-2xl font-bold tracking-tight">
             Book<span className="text-primary">Nook</span>
           </span>
-
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-6 lg:flex">
-
           {visibleLinks.map((link) => {
             const Icon = link.icon;
 
@@ -141,75 +125,47 @@ const Navbar = () => {
               </Link>
             );
           })}
-
         </div>
 
         {/* Desktop Auth Buttons */}
         <div className="hidden items-center gap-3 lg:flex">
-
           {isPending ? (
             <div className="h-9 w-20 animate-pulse rounded-md bg-muted" />
           ) : user ? (
-
             /* Logged In User Dropdown */
             <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-2 rounded-full px-2 py-1 outline-none hover:bg-accent">
+                <Avatar className="h-9 w-9">
+                  <AvatarImage
+                    src={user.image || ""}
+                    alt={user.name || "User"}
+                  />
+                  <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+                </Avatar>
 
-              <DropdownMenuTrigger>
-                <Button
-                  variant="ghost"
-                  className="flex items-center gap-2 rounded-full px-2"
-                >
-
-                  <Avatar className="h-9 w-9">
-
-                    <AvatarImage
-                      src={user.image || ""}
-                      alt={user.name || "User"}
-                    />
-
-                    <AvatarFallback>
-                      {getInitials(user.name)}
-                    </AvatarFallback>
-
-                  </Avatar>
-
-                  <span className="max-w-28 truncate text-sm font-medium">
-                    {user.name}
-                  </span>
-
-                </Button>
+                <span className="max-w-28 truncate text-sm font-medium">
+                  {user.name}
+                </span>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent
-                align="end"
-                className="w-56"
-              >
-
+              <DropdownMenuContent align="end" className="w-56">
                 {/* User Information */}
                 <DropdownMenuGroup>
-
                   <DropdownMenuLabel>
-
                     <div className="flex flex-col gap-1">
-
                       <span>{user.name}</span>
 
                       <span className="text-xs font-normal text-muted-foreground">
                         {user.email}
                       </span>
-
                     </div>
-
                   </DropdownMenuLabel>
-
                 </DropdownMenuGroup>
 
                 <DropdownMenuSeparator />
 
                 {/* Profile */}
-                <DropdownMenuItem
-                  onClick={handleProfile}
-                >
+                <DropdownMenuItem onClick={handleProfile}>
                   <UserRound className="mr-2 h-4 w-4" />
                   My Profile
                 </DropdownMenuItem>
@@ -224,17 +180,13 @@ const Navbar = () => {
                   <LogOut className="mr-2 h-4 w-4" />
                   Logout
                 </DropdownMenuItem>
-
               </DropdownMenuContent>
-
             </DropdownMenu>
-
           ) : (
-
             /* Logged Out Buttons */
             <>
               <Link
-                href="/login"
+                href="/signin"
                 className="inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
               >
                 Login
@@ -247,51 +199,34 @@ const Navbar = () => {
                 Register
               </Link>
             </>
-
           )}
-
         </div>
 
         {/* Mobile Navigation */}
         <div className="lg:hidden">
-
-          <Sheet
-            open={mobileOpen}
-            onOpenChange={setMobileOpen}
-          >
-
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
             <SheetTrigger
-  className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-input bg-background transition-colors hover:bg-accent hover:text-accent-foreground"
-  aria-label="Open navigation menu"
->
-  <Menu className="h-5 w-5" />
-</SheetTrigger>
-
-            <SheetContent
-              side="right"
-              className="w-72"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-input bg-background transition-colors hover:bg-accent hover:text-accent-foreground"
+              aria-label="Open navigation menu"
             >
+              <Menu className="h-5 w-5" />
+            </SheetTrigger>
 
+            <SheetContent side="right" className="w-72">
               <div className="mt-8 flex flex-col gap-5">
-
                 {/* Mobile Logo */}
                 <Link
                   href="/"
                   onClick={closeMobileMenu}
                   className="flex items-center gap-2"
                 >
-
                   <BookOpen className="h-7 w-7 text-primary" />
 
-                  <span className="text-xl font-bold">
-                    BookNook
-                  </span>
-
+                  <span className="text-xl font-bold">BookNook</span>
                 </Link>
 
                 {/* Mobile Navigation Links */}
                 <div className="flex flex-col gap-2">
-
                   {visibleLinks.map((link) => {
                     const Icon = link.icon;
 
@@ -307,27 +242,17 @@ const Navbar = () => {
                       </Link>
                     );
                   })}
-
                 </div>
 
                 <div className="border-t pt-4">
-
                   {isPending ? (
-
-                    <p className="text-sm text-muted-foreground">
-                      Loading...
-                    </p>
-
+                    <p className="text-sm text-muted-foreground">Loading...</p>
                   ) : user ? (
-
                     /* Mobile Logged In User */
                     <div className="space-y-4">
-
                       {/* User Information */}
                       <div className="flex items-center gap-3">
-
                         <Avatar>
-
                           <AvatarImage
                             src={user.image || ""}
                             alt={user.name || "User"}
@@ -336,11 +261,9 @@ const Navbar = () => {
                           <AvatarFallback>
                             {getInitials(user.name)}
                           </AvatarFallback>
-
                         </Avatar>
 
                         <div className="min-w-0">
-
                           <p className="truncate text-sm font-semibold">
                             {user.name}
                           </p>
@@ -348,9 +271,7 @@ const Navbar = () => {
                           <p className="truncate text-xs text-muted-foreground">
                             {user.email}
                           </p>
-
                         </div>
-
                       </div>
 
                       {/* Profile Button */}
@@ -372,16 +293,12 @@ const Navbar = () => {
                         <LogOut className="mr-2 h-4 w-4" />
                         Logout
                       </Button>
-
                     </div>
-
                   ) : (
-
                     /* Mobile Logged Out User */
                     <div className="flex flex-col gap-3">
-
                       <Link
-                        href="/login"
+                        href="/signin"
                         onClick={closeMobileMenu}
                         className="inline-flex h-10 w-full items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                       >
@@ -395,23 +312,14 @@ const Navbar = () => {
                       >
                         Register
                       </Link>
-
                     </div>
-
                   )}
-
                 </div>
-
               </div>
-
             </SheetContent>
-
           </Sheet>
-
         </div>
-
       </nav>
-
     </header>
   );
 };
